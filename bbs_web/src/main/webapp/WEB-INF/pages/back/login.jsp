@@ -1,3 +1,4 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html>
 <!-- Mirrored from admindesigns.com/demos/absolute/1.1/pages_login.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 06 Aug 2015 02:55:38 GMT -->
@@ -47,7 +48,7 @@
                 <!-- Login Panel/Form -->
                 <div class="panel mt30 mb25">
 
-                    <form method="post" action="" id="contact">
+                    <form method="post" action="/admin_login" id="contact">
                         <div class="panel-body bg-light p25 pb15">
 
 
@@ -117,4 +118,5 @@
 </body>
 
 </html>
+
 

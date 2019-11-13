@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.4//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hza.bbs.dao.CommentDao">
+
+    <resultMap id="comment" type="Comment">
+        <id property="id" column="id" javaType="Integer"/>
+        <result property="userId" column="user_id" javaType="String"/>
+        <result property="username" column="username" javaType="String"/>
+        <result property="content" column="content" javaType="String"/>
+        <result property="createTime" column="create_time" javaType="java.util.Date"/>
+        <result property="postId" column="post_id" javaType="Integer"/>
+
+        <association property="user" column="user_id">
+            <result property="email" column="email" javaType="String"/>
+            <result property="userStatus" column="userStatus" javaType="Integer"/>
+        </association>
+
+        <association property="post" column="post_id">
+            <result property="title" column="title" javaType="String"/>
+            <result property="category" column="category" javaType="String"/>
+            <result property="content" column="content" javaType="String"/>
+            <result property="tag" column="tag" javaType="String"/>
+        </association>
+    </resultMap>
+
+    <insert id="insert" parameterType="Comment" useGeneratedKeys="true" keyProperty="id">
+        insert into comment (user_id,
+                             username,
+                             content,
+                             create_time,
+                             post_id)
+        values (#{userId},
+                #{username},
+                #{content},
+                #{createTime},
+                #{postId})
+    </insert>
+
+    <update id="update" parameterType="Comment">
+        update comment
+        set user_id     = #{userId},
+            username    = #{username},
+            content     = #{content},
+            create_time = #{createTime},
+            post_id     = #{postId}
+        where id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="Integer">
+        delete
+        from comment
+        where id = #{id}
+    </delete>
+
+    <select id="selectByPost" parameterType="Integer" resultMap="comment">
+        select *
+        from comment
+        where post_id = #{postId}
+        order by create_time desc;
+    </select>
+
+    <select id="selectByUsername" parameterType="String" resultMap="comment">
+        select *
+        from comment
+        where username = #{username}
+        order by create_time desc;
+    </select>
+
+    <select id="count" resultType="Integer">
+        select count(*) from comment
+    </select>
+
+</mapper>

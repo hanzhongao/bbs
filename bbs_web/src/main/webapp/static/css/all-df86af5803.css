@@ -1858,8 +1858,23 @@ ul.messenger .messenger-clickable {
 /*!
  *  Font Awesome 4.6.3 by @davegandy - http://fontawesome.io - @fontawesome
  *  License - http://fontawesome.io/license (Font: SIL OFL 1.1, CSS: MIT License)
- */@font-face {
-	font-family:FontAwesome;src:url(../fonts/fontawesome-webfont.eot?v=4.6.3);src:url(../fonts/fontawesome-webfont.eot?#iefix&v=4.6.3) format("embedded-opentype"),url(../fonts/fontawesome-webfont.woff2?v=4.6.3) format("woff2"),url(../fonts/fontawesome-webfont.woff?v=4.6.3) format("woff"),url(../fonts/fontawesome-webfont.ttf?v=4.6.3) format("truetype"),url(../fonts/fontawesome-webfont.svg?v=4.6.3#fontawesomeregular) format("svg");font-weight:400;font-style:normal
+ */
+
+/*@font-face {*/
+	/*font-family:FontAwesome;src:url(../fonts/fontawesome-webfont.eot?v=4.6.3);src:url(../fonts/fontawesome-webfont.eot?#iefix&v=4.6.3) format("embedded-opentype"),url(../fonts/fontawesome-webfont.woff2?v=4.6.3) format("woff2"),url(../fonts/fontawesome-webfont.woff?v=4.6.3) format("woff"),url(../fonts/fontawesome-webfont.ttf?v=4.6.3) format("truetype"),url(../fonts/fontawesome-webfont.svg?v=4.6.3#fontawesomeregular) !* format("svg")*!;font-weight:400;font-style:normal*/
+/*}*/
+
+
+
+/* 只需在iOS4.3+/Android2.2+上运行的网页 */
+/*@font-face { font-family: "iconfont"; src: url("iconfont.ttf") format("truetype"); }*/
+/* 需兼容各浏览器的网页。注意: 最后的svg没有指定format */
+@font-face { font-family: "iconfont";
+	src: url("iconfont.eot"); /* IE9*/
+	src: url("iconfont.eot?#iefix") format("embedded-opentype"),/* IE6-IE8 */
+	url("iconfont.woff") format("woff"), /* chrome、firefox */
+	url("iconfont.ttf") format("truetype"), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
+	url("iconfont.svg#iconfont"); /* iOS 4.1- */
 }
 
 .fa {
@@ -2115,7 +2130,7 @@ ul.messenger .messenger-clickable {
 }
 
 .fa-home:before {
-	content: ""
+	content: "\e900"
 }
 
 .fa-file-o:before {

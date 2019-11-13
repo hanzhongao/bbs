@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.4//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hza.bbs.dao.PostDao">
+
+    <resultMap id="post" type="Post">
+        <id     property="id"         column="id"          javaType="Integer"/>
+        <result property="username"   column="username"    javaType="String"/>
+        <result property="title"      column="title"       javaType="String"/>
+        <result property="category"   column="category"    javaType="String"/>
+        <result property="content"    column="content"     javaType="String"/>
+        <result property="tag"        column="tag"         javaType="String"/>
+        <result property="createTime" column="create_time" javaType="java.util.Date"/>
+        <result property="count" column="num" javaType="Integer"/>
+
+        <association property="user" column="username">
+            <result property="username"   column="uname"      javaType="String"/>
+            <result property="email"      column="email"      javaType="String"/>
+        </association>
+
+    </resultMap>
+
+    <insert id="insert" parameterType="Post" useGeneratedKeys="true" keyProperty="id">
+        insert into post (username,
+                          title,
+                          category,
+                          content,
+                          tag,
+                          create_time)
+        values (#{username},
+                #{title},
+                #{category},
+                #{content},
+                #{tag},
+                #{createTime})
+    </insert>
+
+    <update id="update" parameterType="Post">
+        update post
+        set username = #{username},
+            title    = #{title},
+            category = #{category},
+            content  = #{content},
+            tag      = #{tag}
+        where id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="Integer">
+        delete
+        from post
+        where id = #{id}
+    </delete>
+
+    <select id="select" parameterType="Integer" resultMap="post">
+        select p.*,
+               u.email
+        from post p
+                 left join user u
+                           on p.username = u.username
+        where p.id=#{id}
+        order by p.create_time desc
+
+        <if test="start!=null and pagesize!=null">
+            limit #{start},#{pagesize}
+        </if>
+    </select>
+
+    <select id="selectAll" resultMap="post">
+        select p.*,
+               u.email,
+               count(c.id) num
+        from post p
+                 left join user u
+                           on p.username = u.username
+        left join comment c
+        on p.id = c.post_id
+        group by p.id
+        order by p.create_time desc
+    </select>
+
+    <select id="selectByCategory" resultMap="post">
+        select p.*,
+               u.email
+        from post p
+                 left join user u
+                           on p.username = u.username
+        where p.category = #{category}
+        order by p.create_time desc
+    </select>
+
+    <select id="selectByUsername" parameterType="String" resultMap="post">
+        select p.*,
+               u.email
+        from post p
+                 left join user u
+                           on p.username = u.username
+        where p.username = #{username}
+        order by p.create_time desc
+    </select>
+
+    <select id="count" resultType="Integer">
+        select count(*) from post
+    </select>
+
+</mapper>
+
