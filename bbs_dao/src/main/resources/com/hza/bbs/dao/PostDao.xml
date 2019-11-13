@@ -61,9 +61,6 @@
         where p.id=#{id}
         order by p.create_time desc
 
-        <if test="start!=null and pagesize!=null">
-            limit #{start},#{pagesize}
-        </if>
     </select>
 
     <select id="selectAll" resultMap="post">

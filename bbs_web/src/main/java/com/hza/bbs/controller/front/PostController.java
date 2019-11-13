@@ -60,7 +60,6 @@ public class PostController {
     @RequestMapping("/getPost")
     public String post(Integer id , Map<String, Object> map) {
         map.put("post", this.postBiz.get(id)) ;
-        PageHelper.startPage(1, 3);
         List<Comment> comments = this.commentBiz.getByPost(id) ;
         map.put("comments", comments) ;
         map.put("count", comments.size()) ;
